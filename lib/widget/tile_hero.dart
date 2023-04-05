@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uts_mobprog/provider/pick_provider.dart';
 
 import '../data/model/heroes_merge.dart';
 import '../screens/hero_detail_page.dart';
@@ -31,33 +33,55 @@ class _TileHeroState extends State<TileHero> {
             Expanded(
               child: SizedBox(
                 height: 72,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isSelected = !_isSelected;
-                    });
+                child: Consumer<PickProvider>(
+                  builder: (context, data, child) {
+                    var isPicked = data.radiantTeamPick.contains(widget.hero);
+                    var isDirePicked = data.direTeamPick.contains(widget.hero);
+                    return ElevatedButton(
+                      onPressed:  (data.radiantTeamPick.length < 5 && !isPicked && !isDirePicked) ? () {
+                        setState(() {
+                          data.addRadiant(widget.hero);
+                          _isSelected = !_isSelected;
+                        });
+                      } : null,
+                      style:  (data.radiantTeamPick.length < 5 && !isPicked && !isDirePicked)
+                      ? ElevatedButton.styleFrom(
+                        backgroundColor: Colors.greenAccent,
+                      ) 
+                      : ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                      ), 
+                      child: const Text('Radiant', style: TextStyle(color: Colors.black),),
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.greenAccent,
-                  ),
-                  child: const Text('Radiant', style: TextStyle(color: Colors.black),),
-                ),
+                )
               )
             ),
             Expanded(
               child: SizedBox(
                 height: 72,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isSelected = !_isSelected;
-                    });
+                child: Consumer<PickProvider>(
+                  builder: (context, data, child) {
+                    var isPicked = data.direTeamPick.contains(widget.hero);
+                    var isRadiantPicked = data.radiantTeamPick.contains(widget.hero);
+                    return ElevatedButton(
+                      onPressed: (data.direTeamPick.length < 5 && !isPicked && !isRadiantPicked) ? () {
+                        setState(() {
+                          data.addDire(widget.hero);
+                          _isSelected = !_isSelected;
+                        });
+                      } : null,
+                      style: (data.direTeamPick.length < 5 && !isPicked && !isRadiantPicked)
+                      ? ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                      ) 
+                      : ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                      ), 
+                      child: const Text('Dire', style: TextStyle(color: Colors.black),),
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                  ),
-                  child: const Text('Dire', style: TextStyle(color: Colors.black),),
-                ),
+                )
               )
             ),
           ],
@@ -91,11 +115,11 @@ class _TileHeroState extends State<TileHero> {
           ],
         ),
         title: Text(widget.hero.localizedName),
-        subtitle: Row(
+        subtitle: Wrap(
           children: <Widget>[
-            const Icon(Icons.local_offer, size: 15), // Add your icon here
-            const SizedBox(width: 3), // Add some spacing between the icon and text
-            Text(widget.roleNames)
+            const Icon(Icons.local_offer, size: 15),
+            const SizedBox(width: 3),
+            Text(widget.roleNames,  overflow: TextOverflow.ellipsis,)
           ],
         ),
         onTap: () => Navigator.pushNamed(

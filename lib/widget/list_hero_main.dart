@@ -31,6 +31,7 @@ class _ListHeroMainState extends State<ListHeroMain> {
       itemBuilder: (context, index) {
         final hero = heroes[index];
         List<Role> roles = hero.roles;
+        String roleNames = roles.map((role) => role.name).join(', ');
         final attr = hero.primaryAttr ;
         String imgAttr = 'https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png';
         if (attr != null) {
@@ -40,7 +41,6 @@ class _ListHeroMainState extends State<ListHeroMain> {
             imgAttr = 'https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png';
           }
         }
-        String roleNames = roles.map((role) => role.name).join(', ');
         return Card(
           child: TileHero(hero: hero, imgAttr: imgAttr, roleNames: roleNames)
         );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_mobprog/data/model/heroes_merge.dart';
+import 'package:uts_mobprog/provider/pick_provider.dart';
 import 'package:uts_mobprog/screens/hero_detail_page.dart';
 
 import 'provider/hero_provider.dart';
@@ -9,7 +10,10 @@ import 'screens/main_screen.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => HeroesMergeProvider() )],
+      providers: [
+        ChangeNotifierProvider(create: (_) => HeroesMergeProvider()),
+        ChangeNotifierProvider(create: (_) => PickProvider())
+      ],
       child: const MainApp()
     )
   );

@@ -6,7 +6,7 @@ import 'package:uts_mobprog/screens/hero_detail_page.dart';
 
 import 'provider/hero_provider.dart';
 import 'screens/list_hero_screen.dart';
-import 'screens/main_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(
@@ -21,7 +21,7 @@ void main() {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        // '/': (context) => MainScreen(),
-        '/': (context) => ListHeroScreen(),
+        '/': (context) => SplashScreen(),
+        '/list_hero': (context) => ListHeroScreen(),
         '/hero_detail': (context) => HeroDetailPage(
             ModalRoute.of(context)?.settings.arguments as HeroesMerge),
       },

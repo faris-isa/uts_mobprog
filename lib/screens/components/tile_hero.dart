@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_mobprog/provider/pick_provider.dart';
 
-import '../data/model/heroes_merge.dart';
-import '../screens/hero_detail_page.dart';
+import '../../data/model/heroes_merge.dart';
+import '../../screens/hero_detail_page.dart';
 
 class TileHero extends StatefulWidget {
   final HeroesMerge hero;

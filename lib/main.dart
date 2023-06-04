@@ -5,6 +5,7 @@ import 'package:uts_mobprog/provider/pick_provider.dart';
 import 'package:uts_mobprog/screens/hero_detail_page.dart';
 
 import 'provider/hero_provider.dart';
+import 'screens/list_hero_screen.dart';
 import 'screens/main_screen.dart';
 
 void main() {
@@ -28,7 +29,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => MainScreen(),
+        // '/': (context) => MainScreen(),
+        '/': (context) => ListHeroScreen(),
         '/hero_detail': (context) => HeroDetailPage(
             ModalRoute.of(context)?.settings.arguments as HeroesMerge),
       },

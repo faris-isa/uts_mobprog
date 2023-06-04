@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final heroes = heroesFromJson(jsonString);
+
 import 'dart:convert';
 
 List<Heroes> heroesFromJson(String str) => List<Heroes>.from(json.decode(str).map((x) => Heroes.fromJson(x)));
@@ -5,6 +9,17 @@ List<Heroes> heroesFromJson(String str) => List<Heroes>.from(json.decode(str).ma
 String heroesToJson(List<Heroes> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Heroes {
+    int id;
+    String name;
+    String localizedName;
+    PrimaryAttr primaryAttr;
+    AttackType attackType;
+    List<Role> roles;
+    String img;
+    String icon;
+    int baseHealth;
+    int baseMana;
+
     Heroes({
         required this.id,
         required this.name,
@@ -18,17 +33,6 @@ class Heroes {
         required this.baseMana
     });
 
-    int id;
-    String name;
-    String localizedName;
-    PrimaryAttr primaryAttr;
-    AttackType attackType;
-    List<Role> roles;
-    String img;
-    String icon;
-    int baseHealth;
-    int baseMana;
-
     factory Heroes.fromJson(Map<String, dynamic> json) => Heroes(
         id: json["id"],
         name: json["name"],
@@ -39,7 +43,7 @@ class Heroes {
         img: json["img"],
         icon: json["icon"],
         baseHealth: json["base_health"],
-        baseMana: json["base_mana"],
+        baseMana: json["base_mana"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -63,10 +67,12 @@ final attackTypeValues = EnumValues({
     "Ranged": AttackType.RANGED
 });
 
-enum PrimaryAttr { AGI, STR, INT }
+enum PrimaryAttr { FILTER, AGI, STR, ALL, INT }
 
 final primaryAttrValues = EnumValues({
+    "null":PrimaryAttr.FILTER,
     "agi": PrimaryAttr.AGI,
+    "all": PrimaryAttr.ALL,
     "int": PrimaryAttr.INT,
     "str": PrimaryAttr.STR
 });

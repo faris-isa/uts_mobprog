@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final HeroesDetailed = HeroesDetailedFromJson(jsonString);
+//     final heroesDetailed = heroesDetailedFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -11,6 +11,16 @@ Map<String, HeroesDetailed> heroesDetailedFromJson(String str) => Map.from(json.
 String heroesDetailedToJson(Map<String, HeroesDetailed> data) => json.encode(Map.from(data).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())));
 
 class HeroesDetailed {
+    int id;
+    String name;
+    String displayName;
+    String shortName;
+    List<Ability> abilities;
+    List<Talent> talents;
+    Stat stat;
+    Language language;
+    List<String> aliases;
+
     HeroesDetailed({
         required this.id,
         required this.name,
@@ -22,16 +32,6 @@ class HeroesDetailed {
         required this.language,
         required this.aliases,
     });
-
-    int id;
-    String name;
-    String displayName;
-    String shortName;
-    List<Ability> abilities;
-    List<Talent> talents;
-    Stat stat;
-    Language language;
-    List<String> aliases;
 
     factory HeroesDetailed.fromJson(Map<String, dynamic> json) => HeroesDetailed(
         id: json["id"],
@@ -59,13 +59,13 @@ class HeroesDetailed {
 }
 
 class Ability {
+    int slot;
+    int abilityId;
+
     Ability({
         required this.slot,
         required this.abilityId,
     });
-
-    int slot;
-    int abilityId;
 
     factory Ability.fromJson(Map<String, dynamic> json) => Ability(
         slot: json["slot"],
@@ -79,6 +79,13 @@ class Ability {
 }
 
 class Language {
+    int heroId;
+    int gameVersionId;
+    int languageId;
+    String displayName;
+    String bio;
+    String hype;
+
     Language({
         required this.heroId,
         required this.gameVersionId,
@@ -87,13 +94,6 @@ class Language {
         required this.bio,
         required this.hype,
     });
-
-    int heroId;
-    int gameVersionId;
-    int languageId;
-    String displayName;
-    String bio;
-    String hype;
 
     factory Language.fromJson(Map<String, dynamic> json) => Language(
         heroId: json["heroId"],
@@ -115,6 +115,39 @@ class Language {
 }
 
 class Stat {
+    int gameVersionId;
+    bool enabled;
+    double heroUnlockOrder;
+    bool team;
+    bool cmEnabled;
+    bool newPlayerEnabled;
+    AttackType attackType;
+    double startingArmor;
+    double startingMagicArmor;
+    double startingDamageMin;
+    double startingDamageMax;
+    double attackRate;
+    double attackAnimationPoint;
+    double attackAcquisitionRange;
+    double attackRange;
+    PrimaryAttr attributePrimary;
+    int heroPrimaryAttribute;
+    double strengthBase;
+    double strengthGain;
+    double intelligenceBase;
+    double intelligenceGain;
+    double agilityBase;
+    double agilityGain;
+    double hpRegen;
+    double mpRegen;
+    double moveSpeed;
+    double moveTurnRate;
+    double hpBarOffset;
+    double visionDaytimeRange;
+    double visionNighttimeRange;
+    int complexity;
+    int primaryAttributeEnum;
+
     Stat({
         required this.gameVersionId,
         required this.enabled,
@@ -131,7 +164,7 @@ class Stat {
         required this.attackAnimationPoint,
         required this.attackAcquisitionRange,
         required this.attackRange,
-        required this.primaryAttribute,
+        required this.attributePrimary,
         required this.heroPrimaryAttribute,
         required this.strengthBase,
         required this.strengthGain,
@@ -147,39 +180,8 @@ class Stat {
         required this.visionDaytimeRange,
         required this.visionNighttimeRange,
         required this.complexity,
+        required this.primaryAttributeEnum,
     });
-
-    int gameVersionId;
-    bool enabled;
-    double heroUnlockOrder;
-    bool team;
-    bool cmEnabled;
-    bool newPlayerEnabled;
-    AttackType attackType;
-    double startingArmor;
-    double startingMagicArmor;
-    double startingDamageMin;
-    double startingDamageMax;
-    double attackRate;
-    double attackAnimationPoint;
-    double attackAcquisitionRange;
-    double attackRange;
-    PrimaryAttribute primaryAttribute;
-    int heroPrimaryAttribute;
-    double strengthBase;
-    double strengthGain;
-    double intelligenceBase;
-    double intelligenceGain;
-    double agilityBase;
-    double agilityGain;
-    double hpRegen;
-    double mpRegen;
-    double moveSpeed;
-    double moveTurnRate;
-    double hpBarOffset;
-    double visionDaytimeRange;
-    double visionNighttimeRange;
-    int complexity;
 
     factory Stat.fromJson(Map<String, dynamic> json) => Stat(
         gameVersionId: json["gameVersionId"],
@@ -197,7 +199,7 @@ class Stat {
         attackAnimationPoint: json["attackAnimationPoint"]?.toDouble(),
         attackAcquisitionRange: json["attackAcquisitionRange"],
         attackRange: json["attackRange"],
-        primaryAttribute: primaryAttributeValues.map[json["primaryAttribute"]]!,
+        attributePrimary: primaryAttrValues.map[json["AttributePrimary"]]!,
         heroPrimaryAttribute: json["heroPrimaryAttribute"],
         strengthBase: json["strengthBase"],
         strengthGain: json["strengthGain"]?.toDouble(),
@@ -213,6 +215,7 @@ class Stat {
         visionDaytimeRange: json["visionDaytimeRange"],
         visionNighttimeRange: json["visionNighttimeRange"],
         complexity: json["complexity"],
+        primaryAttributeEnum: json["primaryAttributeEnum"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -231,7 +234,7 @@ class Stat {
         "attackAnimationPoint": attackAnimationPoint,
         "attackAcquisitionRange": attackAcquisitionRange,
         "attackRange": attackRange,
-        "primaryAttribute": primaryAttributeValues.reverse[primaryAttribute],
+        "AttributePrimary": primaryAttrValues.reverse[attributePrimary],
         "heroPrimaryAttribute": heroPrimaryAttribute,
         "strengthBase": strengthBase,
         "strengthGain": strengthGain,
@@ -247,27 +250,20 @@ class Stat {
         "visionDaytimeRange": visionDaytimeRange,
         "visionNighttimeRange": visionNighttimeRange,
         "complexity": complexity,
+        "primaryAttributeEnum": primaryAttributeEnum,
     };
 }
 
-enum PrimaryAttribute { AGI, STR, INT }
-
-final primaryAttributeValues = EnumValues({
-    "agi": PrimaryAttribute.AGI,
-    "int": PrimaryAttribute.INT,
-    "str": PrimaryAttribute.STR
-});
-
 class Talent {
+    int slot;
+    int gameVersionId;
+    int abilityId;
+
     Talent({
         required this.slot,
         required this.gameVersionId,
         required this.abilityId,
     });
-
-    int slot;
-    int gameVersionId;
-    int abilityId;
 
     factory Talent.fromJson(Map<String, dynamic> json) => Talent(
         slot: json["slot"],

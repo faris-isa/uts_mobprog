@@ -23,6 +23,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/splash.jpg
+    - assets/images/baby_roshan.png
   fonts:
     - family: PlusJakartaSans
       fonts:

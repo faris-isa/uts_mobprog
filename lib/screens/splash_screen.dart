@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:uts_mobprog/screens/list_hero_screen.dart';
+import 'main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   var duration = const Duration(seconds: 5);
   return Timer(duration, () {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => ListHeroScreen()));
+        MaterialPageRoute(builder: (context) => MainScreen()));
   });
 }
 

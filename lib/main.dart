@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:uts_mobprog/data/model/heroes_merge.dart';
 import 'package:uts_mobprog/provider/pick_provider.dart';
 import 'package:uts_mobprog/screens/hero_detail_page.dart';
+import 'package:uts_mobprog/screens/main_screen.dart';
+import 'package:uts_mobprog/screens/pick_screen.dart';
 
 import 'provider/hero_provider.dart';
 import 'screens/list_hero_screen.dart';
@@ -30,7 +32,9 @@ class MainApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
+        '/main': (context) => MainScreen(),
         '/list_hero': (context) => ListHeroScreen(),
+        '/pick_hero': (context) => PickScreen(),
         '/hero_detail': (context) => HeroDetailPage(
             ModalRoute.of(context)?.settings.arguments as HeroesMerge),
       },
